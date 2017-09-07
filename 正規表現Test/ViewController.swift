@@ -7,12 +7,24 @@
 //
 
 import UIKit
+import Foundation
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        let str :NSMutableString = "\\.^~@:あ　\\\\[い \\*\\+う\\?え&\\]お\"_,=か\\{<>き\\}く#%\\(け\\)こ'!"
+        
+        let regular : NSRegularExpression! = try? NSRegularExpression(pattern: "[\\\\\\*\\+\\.\\?\\{\\}\\(\\)\\[\\]$\\-\\|\\/^~@:;<>`#%&'!\"_,= 　]", options: [])
+        
+        //\*+.?{}()[]$-|/半角スペース・全角スペースが入っていたとき
+        if let _ = regular.firstMatch(in: str as String, options: [], range: NSMakeRange(0, str.length)) {
+
+            //置換
+            regular.replaceMatches(in: str, options: [], range: NSMakeRange(0, str.length), withTemplate: "")
+        }
+        print(str)
     }
 
     override func didReceiveMemoryWarning() {
